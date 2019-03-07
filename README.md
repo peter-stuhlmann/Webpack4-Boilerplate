@@ -1,6 +1,6 @@
 # Webpack babel
 
-[![MIT License](https://img.shields.io/github/license/peter-stuhlmann/webpack-babel.svg)](webpack-babel/LICENSE) ![Code size](https://img.shields.io/github/languages/code-size/peter-stuhlmann/webpack-babel.svg) ![downloads](https://img.shields.io/github/downloads/peter-stuhlmann/webpack-babel/total.svg) [![open issues](https://img.shields.io/github/issues/peter-stuhlmann/webpack-babel.svg)](webpack-babel/issues) [![closed issues](https://img.shields.io/github/issues-closed/peter-stuhlmann/webpack-babel.svg)](webpack-babel/issues?q=is%3Aissue+is%3Aclosed)
+[![MIT License](https://img.shields.io/github/license/peter-stuhlmann/webpack-babel.svg)](LICENSE) ![Code size](https://img.shields.io/github/languages/code-size/peter-stuhlmann/webpack-babel.svg) ![downloads](https://img.shields.io/github/downloads/peter-stuhlmann/webpack-babel/total.svg) [![open issues](https://img.shields.io/github/issues/peter-stuhlmann/webpack-babel.svg)](https://github.com/peter-stuhlmann/webpack-babel/issues) [![closed issues](https://img.shields.io/github/issues-closed/peter-stuhlmann/webpack-babel.svg)](https://github.com/peter-stuhlmann/webpack-babel/issues?q=is%3Aissue+is%3Aclosed)
 
 Wenn Du dieses Repository klonst, musst Du folgenden Command im Terminal eingeben, um *node_modules* zu erstellen und die Konfiguration funktionsfähig zu machen:
 
@@ -86,3 +86,7 @@ Und um die Entwickler-Version bzw. den nicht minimierten Code zu sehen, schreibe
 ```
 $ npm run dev
 ```
+
+---
+
+[&copy; Peter R. Stuhlmann Webentwicklung](https://peter-stuhlmann-webentwicklung.de)
