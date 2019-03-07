@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/peter-stuhlmann/webpack-babel#readme",
   "devDependencies": {
+    "@babel/core": "^7.3.4",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
   }
