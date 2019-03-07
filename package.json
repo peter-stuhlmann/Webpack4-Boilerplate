@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/peter-stuhlmann/webpack-babel/issues"
   },
-  "homepage": "https://github.com/peter-stuhlmann/webpack-babel#readme"
+  "homepage": "https://github.com/peter-stuhlmann/webpack-babel#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  }
 }
