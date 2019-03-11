@@ -5,10 +5,10 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/assets/js/main.js',
     output: {
-        path: path.resolve(__dirname, 'dist/assets/js/'),
-        filename: 'script.js'
+        path: path.resolve(__dirname, 'dist/'),
+        filename: 'assets/js/main.js'
     },
     module: {
         rules: [
@@ -72,7 +72,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'assets/css/styles.css'
+            filename: 'assets/css/style.css'
         }),
         new HtmlWebpackPlugin({
             title: 'Setting up webpack 4',
