@@ -181,15 +181,39 @@ module.exports = {
 ```
 
 **(5) Projektstruktur im Ordner _src_**  
-Erstelle im Hauptverzeichnis einen Ordner _src_. In diesen Ordner kommen alle Dateien, die Du bearbeiten möchtest. Folgende Ordnerstruktur gilt für dieses Beispiel, kann aber natürlich verändert werden. In dem Fall musst Du aber auch die Pfade in der _webpack.config.js_ entsprechend anpassen.
+Erstelle im Hauptverzeichnis einen Ordner _src_. In diesen Ordner kommen Deine HTML-, Javascript-, SCSS- und Bilddateien. Folgende Ordnerstruktur gilt für dieses Beispiel, kann aber natürlich verändert werden. In dem Fall musst Du aber auch die Pfade in der _webpack.config.js_ entsprechend anpassen.
+
+```
+src
+│
+└───index.html
+│
+└───assets
+    │
+    └───js
+    │   └───main.js
+    │
+    └───scss
+    │   └───style.scss
+    │
+    └───img
+        └───logo.png
+```
 
 ---
 
-Nun kannst Du webpack nutzen.  
+_index.html_ Du musst Dein Stylesheet und Deine Javascript-Datei nicht einbinden. Das geschieht bei der Kompilierung automatisch.
+"Sicher ist sicher?" Nein! Wenn Du diese Dateien trotzdem einbindest werden sie doppelt verlinkt.
+
+_main.js_ Importiere Deine SCSS- und Bild-Dateien. Ungewöhnlich, muss aber bei webpack so sein.
+```
+import "../scss/style.scss"
+import "../img/logo.png"
+```
 
 ---
 
-Wenn Du Dein Projekt kompilieren/minimieren möchtest, gib folgenden Befehl ein. Es wird ein Ornder _dist_ erstellt, in dem Du all Deine dateien minimiert finden wirst. Diese kannst Du dann z.B. auf Deine Website hochladen.
+Wenn Du Dein Projekt kompilieren/minimieren möchtest, gib folgenden Befehl ein. Es wird ein Ordner _dist_ erstellt, in dem Du all Deine Dateien minimiert finden wirst. Diese kannst Du dann z.B. auf Deine Website hochladen.
 ```
 $ npm run build
 ```
