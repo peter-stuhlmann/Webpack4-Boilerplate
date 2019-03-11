@@ -2,7 +2,7 @@
 
 [![MIT License](https://img.shields.io/github/license/peter-stuhlmann/Webpack4-Boilerplate.svg)](LICENSE) ![Code size](https://img.shields.io/github/languages/code-size/peter-stuhlmann/Webpack4-Boilerplate.svg) ![downloads](https://img.shields.io/github/downloads/peter-stuhlmann/Webpack4-Boilerplate/total.svg) [![open issues](https://img.shields.io/github/issues/peter-stuhlmann/Webpack4-Boilerplate.svg)](https://github.com/peter-stuhlmann/Webpack4-Boilerplate/issues) [![closed issues](https://img.shields.io/github/issues-closed/peter-stuhlmann/Webpack4-Boilerplate.svg)](https://github.com/peter-stuhlmann/Webpack4-Boilerplate/issues?q=is%3Aissue+is%3Aclosed)
 
-Wenn Du dieses Repository klonst, musst Du folgenden Command im Terminal eingeben, um *node_modules* zu erstellen und die Konfiguration funktionsfähig zu machen:
+Wenn Du dieses Repository klonst, musst Du folgenden Command im Terminal eingeben, um *node_modules* zu erstellen bzw. die notwenigen Plugins zu installieren und die Konfiguration somit funktionsfähig zu machen:
 
 ```
 $ npm i
@@ -14,17 +14,68 @@ $ npm i
 
 ## Schritt für Schritt: webpack 4 selbst einrichten
 
-Führe als erstes die folgenden Schritte im Terminal durch:
+**(1) Initialisiere npm**
 ```
 $ npm init -y
-$ npm i --save-dev webpack webpack-cli
-$ npm i --save-dev @babel/core
-$ npm i --save-dev babel-loader
-$ npm i --save-dev @babel/preset-env
 ```
-_(Anstelle von ```--save-dev``` kannst Du auch die Kurzform ```-D``` schreiben.)_
 
-Ergänze in der _package.json_ den Punkt 'scripts':
+**(2) Plugins installieren**  
+In Deinem Hauptverzeichnis wurde nun eine _package.json_-Datei erstellt. Installiere nun ein paar notwendige Plugins.
+
+Dazu gibt es zwei Möglichkeiten:
+
+(2a) Installiere die Plugins manuell über das Terminal. So hast Du i. d. R. die aktuellste Version. 
+```
+$ npm i @babel/core --save-dev
+$ npm i @babel/preset-env --save-dev
+$ npm i babel-loader --save-dev
+$ npm i css-loader --save-dev
+$ npm i file-loader --save-dev
+$ npm i html-webpack-plugin --save-dev
+$ npm i mini-css-extract-plugin --save-dev
+$ npm i node-sass --save-dev
+$ npm i optimize-css-assets-webpack-plugin --save-dev
+$ npm i postcss-loader --save-dev
+$ npm i postcss-preset-env --save-dev
+$ npm i sass-loader --save-dev
+$ npm i style-loader --save-dev
+$ npm i uglifyjs-webpack-plugin --save-dev
+$ npm i webpack --save-dev
+$ npm i webpack-cli --save-dev
+```
+_(```--save-dev``` gibt an, dass Du die Plugins als devDependencies installieren möchtest. Anstelle von ```--save-dev``` kannst Du auch die Kurzform ```-D``` schreiben.)_
+
+(2b) Oder kopiere Code 2b.1 in Deine _package.json_-Datei und installiere die Plugins hinterher mit dem Befehl 2b.2.
+
+(2b.1)
+```
+"devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.6.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  }
+```
+
+(2b.2.)
+```
+$ npm i
+```
+
+**(3) Scripts**  
+Ergänze in der _package.json_ den Punkt 'scripts' um folgende Zeilen:
 ```
 "dev": "webpack --mode development --watch",
 "build": "webpack --mode production"
@@ -33,20 +84,27 @@ Ergänze in der _package.json_ den Punkt 'scripts':
 ```"dev"``` und ```"build"``` können individuell benannt werden.
 
 
-Erstelle und öffne eine Datei mit dem Name _webpack.config.js_.
-
-Schreibe in die _webpack.config.js_:
+**(4) webpack.config.js**  
+Erstelle und öffne eine Datei mit dem Namen _webpack.config.js_. Schreibe in diese Datei:
 ```
-var path = require('path');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/assets/js/main.js',
     output: {
-        path: path.resolve(__dirname, 'dist/assets/js/'),
-        filename: 'script.js'
+        path: path.resolve(__dirname, 'dist/'),
+        filename: 'assets/js/main.js'
     },
-    module {
-        rules:[
+    optimization: {
+        minimizer: [new UglifyJsPlugin(), new OptimizeCSSAssetsPlugin()]
+    },
+    devtool: "source-map",
+    module: {
+        rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -56,36 +114,92 @@ module.exports = {
                         presets: ["@babel/preset-env"]
                     }
                 }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: [/.css$|.scss$/],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            sourceMap: true,
+                            plugins: [
+                                require('autoprefixer')({
+                                    browsers: ['> 1%', 'last 2 versions']
+                                })
+                            ]
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'assets/img/'
+                        }
+                    }
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'assets/css/style.css'
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Setting up webpack 4',
+            template: 'src/index.html',
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            }
+        })
+    ]
 }
 ```
 
-Erstelle im Hauptverzeichnis zwei Ordner, _src_ und _dist_.   
-**_src:_** In diesen Ordner kommen alle Dateien, die Du mit babel-webpack kompilieren willst, z.B. Javascript-Dateien   
-**_dist:_** In diesen Ordner können Dateien gepackt werden, die nicht kompiliert werden müssen, z.B. images. Außerdem beinhaltet dieser Ordner später alles was Du auf Deiner Website veröffentlichen möchtest. Deine bearbeiteten Dateien aus dem Ordner _src_ werden automatisch im Ordner _dist_ sichtbar.
+**(5) Projektstruktur im Ordner _src_**  
+Erstelle im Hauptverzeichnis einen Ordner _src_. In diesen Ordner kommen alle Dateien, die Du bearbeiten möchtest. Folgende Ordnerstruktur gilt für dieses Beispiel, kann aber natürlich verändert werden. In dem Fall musst Du aber auch die Pfade in der _webpack.config.js_ entsprechend anpassen.
 
 ---
 
-Nun kannst Du webpack-babel nutzen.
-So könntest Du jetzt starten:
-
-Erstelle eine _index.html_ im Ordner _dist_ und eine _index.js_ im Ordner _src_.  
-Verlinke in der _index.html_ eine Javascript-Datei mit dem Namen _script.js_ mit dem Pfad _assets/js/_. Möchtest Du den Pfad oder den Dateinamen ändern musst Du auch 'path' und 'filename' in der _webpack.config.js_ entsprechend anpassen.  
-Für dieses Beispiel gilt: Um Deinen Javascript-Code zu bearbeiten nutze bitte die _index.js_ im Ordner _src_. Deinen HTML-Code änderst Du in der _index.html_ im Ordner _dist_.
+Nun kannst Du webpack nutzen.  
 
 ---
 
-Wenn Du die kompilierte Version speichern möchtest, z.B. um das Projekt zu veröffentlichen, schreibe
+Wenn Du Dein Projekt kompilieren/minimieren möchtest, gib folgenden Befehl ein. Es wird ein Ornder _dist_ erstellt, in dem Du all Deine dateien minimiert finden wirst. Diese kannst Du dann z.B. auf Deine Website hochladen.
 ```
 $ npm run build
 ```
 
-Und um die Entwickler-Version bzw. den nicht minimierten Code zu sehen, schreibe
+Und um die Entwickler-Version bzw. den nicht minimierten Code im _dist_-Ordner zu speichern, schreibe
 ```
 $ npm run dev
 ```
+
+**Achtung!** Bearbeite Deine Dateien nur im Ordner _src_. Der _dist_-Ordner ist nur für die Ausgabe gedacht.
 
 ---
 
