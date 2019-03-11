@@ -1,6 +1,6 @@
-# Webpack babel
+# Webpack 4 Boilerplate
 
-[![MIT License](https://img.shields.io/github/license/peter-stuhlmann/webpack-babel.svg)](LICENSE) ![Code size](https://img.shields.io/github/languages/code-size/peter-stuhlmann/webpack-babel.svg) ![downloads](https://img.shields.io/github/downloads/peter-stuhlmann/webpack-babel/total.svg) [![open issues](https://img.shields.io/github/issues/peter-stuhlmann/webpack-babel.svg)](https://github.com/peter-stuhlmann/webpack-babel/issues) [![closed issues](https://img.shields.io/github/issues-closed/peter-stuhlmann/webpack-babel.svg)](https://github.com/peter-stuhlmann/webpack-babel/issues?q=is%3Aissue+is%3Aclosed)
+[![MIT License](https://img.shields.io/github/license/peter-stuhlmann/Webpack4-Boilerplate.svg)](LICENSE) ![Code size](https://img.shields.io/github/languages/code-size/peter-stuhlmann/Webpack4-Boilerplate.svg) ![downloads](https://img.shields.io/github/downloads/peter-stuhlmann/Webpack4-Boilerplate/total.svg) [![open issues](https://img.shields.io/github/issues/peter-stuhlmann/Webpack4-Boilerplate.svg)](https://github.com/peter-stuhlmann/Webpack4-Boilerplate/issues) [![closed issues](https://img.shields.io/github/issues-closed/peter-stuhlmann/Webpack4-Boilerplate.svg)](https://github.com/peter-stuhlmann/Webpack4-Boilerplate/issues?q=is%3Aissue+is%3Aclosed)
 
 Wenn Du dieses Repository klonst, musst Du folgenden Command im Terminal eingeben, um *node_modules* zu erstellen und die Konfiguration funktionsfähig zu machen:
 
@@ -10,9 +10,9 @@ $ npm i
 
 ---
 
-**Alternative: So kannst Du webpack-babel selbst einrichten**
+**Alternative: So kannst Du webpack selbst einrichten**
 
-## Schritt für Schritt: webpack-babel selbst einrichten
+## Schritt für Schritt: webpack 4 selbst einrichten
 
 Führe als erstes die folgenden Schritte im Terminal durch:
 ```
