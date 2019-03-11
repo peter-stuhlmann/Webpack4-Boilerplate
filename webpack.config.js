@@ -10,6 +10,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist/'),
         filename: 'assets/js/main.js'
     },
+    optimization: {
+        minimizer: [new UglifyJsPlugin(), new OptimizeCSSAssetsPlugin()]
+    },
     devtool: "source-map",
     module: {
         rules: [
