@@ -65,5 +65,19 @@ module.exports = {
                 ]
             }
         ]
-    }
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'assets/css/styles.css'
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Setting up webpack 4',
+            template: 'src/index.html',
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            }
+        })
+    ]
 }
